@@ -121,8 +121,10 @@ img, svg {
   /* outline: 1px solid blue; */
   z-index: 1;
   background: url(../images/front00.png)no-repeat;
-  animation: person .3s infinite alternate;
+}
 
+.person.animate{
+  animation: person .3s infinite alternate;
 }
 
 .person .talk {

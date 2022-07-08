@@ -180,7 +180,7 @@ function createPerson (x, y, walk) {
           top:${x * range}px;
           left:${y * range}px;
         `;
-  person.className = `person ${walk}`
+  person.className = `person animate ${walk}`
 
 }
 
@@ -188,49 +188,65 @@ createPerson(x, y)
 
 
 
-
 window.addEventListener('keydown', e => {
-
 
   const k = e.key
 
-  // 預約對話框的判斷
-  if (k == 'ArrowUp' && dialogBox.classList.contains('book')) {
-    optionTop.focus()
-    optionTop.className = 'focus'
-    optionDown.className = ''
-  } else if (k == 'ArrowDown' && dialogBox.classList.contains('book')) {
-    optionDown.focus()
-    optionTop.className = ''
-    optionDown.className = 'focus'
+  function chooseOption (status) {
+    if (k == 'ArrowUp' && dialogBox.classList.contains(status)) {
+      optionTop.focus()
+      optionTop.className = 'focus'
+      optionDown.className = ''
+    } else if (k == 'ArrowDown' && dialogBox.classList.contains(status)) {
+      optionDown.focus()
+      optionTop.className = ''
+      optionDown.className = 'focus'
+    }
   }
 
-  // 查詢對話框的判斷
-  if (k == 'ArrowUp' && dialogBox.classList.contains('comp')) {
-    optionTop.focus()
-    optionTop.className = 'focus'
-    optionDown.className = ''
-  } else if (k == 'ArrowDown' && dialogBox.classList.contains('comp')) {
-    optionDown.focus()
-    optionTop.className = ''
-    optionDown.className = 'focus'
-  }
+  chooseOption('book')
+  chooseOption('comp')
+  chooseOption('querySuccess')
 
-  // 查詢結果框的判斷
-  if (k == 'ArrowUp' && dialogBox.classList.contains('querySuccess')) {
-    optionTop.focus()
-    optionTop.className = 'focus'
-    optionDown.className = ''
-  } else if (k == 'ArrowDown' && dialogBox.classList.contains('querySuccess')) {
-    optionDown.focus()
-    optionTop.className = ''
-    optionDown.className = 'focus'
-  }
+
+  // // 預約對話框的判斷
+  // if (k == 'ArrowUp' && dialogBox.classList.contains('book')) {
+  //   optionTop.focus()
+  //   optionTop.className = 'focus'
+  //   optionDown.className = ''
+  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('book')) {
+  //   optionDown.focus()
+  //   optionTop.className = ''
+  //   optionDown.className = 'focus'
+  // }
+
+  // // 查詢對話框的判斷
+  // if (k == 'ArrowUp' && dialogBox.classList.contains('comp')) {
+  //   optionTop.focus()
+  //   optionTop.className = 'focus'
+  //   optionDown.className = ''
+  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('comp')) {
+  //   optionDown.focus()
+  //   optionTop.className = ''
+  //   optionDown.className = 'focus'
+  // }
+
+  // // 查詢結果框的判斷
+  // if (k == 'ArrowUp' && dialogBox.classList.contains('querySuccess')) {
+  //   optionTop.focus()
+  //   optionTop.className = 'focus'
+  //   optionDown.className = ''
+  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('querySuccess')) {
+  //   optionDown.focus()
+  //   optionTop.className = ''
+  //   optionDown.className = 'focus'
+  // }
 
 
   // 當所有的表格跟對話都沒出現的時候才可以走
+  // >>> 當有animate才可以走
   // 上  ArrowUp
-  if (k == 'ArrowUp' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowUp' && person.classList.contains('animate')) {
     talk.className = 'talk'
     useCom = false
     if (map[x - 1][y] === 0) {
@@ -241,7 +257,7 @@ window.addEventListener('keydown', e => {
   }
 
   // 下  ArrowDown
-  if (k == 'ArrowDown' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowDown' && person.classList.contains('animate')) {
 
     talk.className = 'talk'
     useCom = false
@@ -253,7 +269,7 @@ window.addEventListener('keydown', e => {
   }
 
   // 左  ArrowLeft
-  if (k == 'ArrowLeft' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowLeft' && person.classList.contains('animate')) {
 
     talk.className = 'talk'
     useCom = false
@@ -265,7 +281,7 @@ window.addEventListener('keydown', e => {
   }
 
   // 右   ArrowRight
-  if (k == 'ArrowRight' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowRight' && person.classList.contains('animate')) {
 
     talk.className = 'talk'
     useCom = false
@@ -292,6 +308,9 @@ window.addEventListener('keydown', e => {
     // 若為true，則代表座位已被預約
     if (useCom) {
 
+      // 當在溝通時關掉animate
+      person.classList.remove('animate')
+
       dialogBox.className = 'dialogBox show comp'
       dialogTxt.textContent = `打開了電脳!`
 
@@ -305,14 +324,19 @@ window.addEventListener('keydown', e => {
 
       dialogBox.className = 'dialogBox show cannotBook'
       dialogTxt.textContent = `座位${tableNum}已被預約，請預約其他座位QQ`
+      person.classList.remove('animate')
 
       setTimeout(() => {
         dialogBox.className = 'dialogBox'
         talk.className = 'talk show'
+        person.classList.add('animate')
       }, 1000)
 
 
     } else {
+
+      // 當在溝通時關掉animate
+      person.classList.remove('animate')
 
       dialogBox.className = 'dialogBox show book'
       dialogTxt.textContent = `目前座位${tableNum}無人預約，是否要預約?`
@@ -349,9 +373,9 @@ document.addEventListener('keyup', e => {
 
 
   // 上
-  if (k == 'ArrowUp' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowUp' && person.classList.contains('animate')) {
 
-    person.className = `person top-stop`
+    person.className = `person animate top-stop`
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
@@ -367,9 +391,9 @@ document.addEventListener('keyup', e => {
   }
 
   // 下
-  if (k == 'ArrowDown' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowDown' && person.classList.contains('animate')) {
 
-    person.className = `person down-stop`
+    person.className = `person animate down-stop`
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
@@ -382,9 +406,9 @@ document.addEventListener('keyup', e => {
   }
 
   // 左
-  if (k == 'ArrowLeft' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowLeft' && person.classList.contains('animate')) {
 
-    person.className = `person left-stop`
+    person.className = `person animate left-stop`
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
@@ -397,9 +421,9 @@ document.addEventListener('keyup', e => {
   }
 
   // 右
-  if (k == 'ArrowRight' && !dialogBox.classList.contains('show') && !bookForm.classList.contains('show') && !queryForm.classList.contains('show') && !cancelForm.classList.contains('show')) {
+  if (k == 'ArrowRight' && person.classList.contains('animate')) {
 
-    person.className = `person right-stop`
+    person.className = `person animate right-stop`
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
@@ -455,12 +479,15 @@ optionDown.addEventListener('keydown', e => {
   if (e.code === 'Enter' && status === 'book') {
     dialogBox.className = 'dialogBox';
     talk.className = 'talk show';
+    // 結束對話時開啟animate
+    person.classList.add('animate')
   } else if (e.code === 'Enter' && status === 'comp') {
     dialogBox.className = 'dialogBox';
     cancelForm.className = 'cancel show';
   } else if (e.code === 'Enter' && status === 'querySuccess') {
     dialogBox.className = 'dialogBox';
     talk.className = 'talk show';
+    person.classList.add('animate')
 
     // 離開查詢結果表單要重置
     // 關閉表單
@@ -509,6 +536,9 @@ bookingOut.addEventListener('click', e => {
 
   console.log('取消退出')
 
+  // 結束對話時開啟animate
+  person.classList.add('animate')
+
   // 關閉表單
   bookForm.className = 'booking'
 
@@ -534,7 +564,7 @@ bookingSubmit.addEventListener('click', e => {
   const bookFormCheck = new CheckForm(inputBookName, inputBookTel, 'booking')
   console.log(bookFormCheck.notice)
   bookFormCheck.checkForm();
-  if(bookFormCheck.notice){
+  if (bookFormCheck.notice) {
     return
   }
 
@@ -562,7 +592,6 @@ bookingSubmit.addEventListener('click', e => {
   //   return
   // }
 
-  talk.className = 'talk show'
 
   // 先將資料集合在一起
   let data = {
@@ -653,6 +682,11 @@ bookingSubmit.addEventListener('click', e => {
   document.querySelector('.booking .name .notice').className = 'notice'
   document.querySelector('.booking .tel .notice').className = 'notice'
 
+
+  talk.className = 'talk show'
+  // 結束對話時開啟animate
+  person.classList.add('animate')
+
 });
 
 
@@ -733,6 +767,8 @@ queryOut.addEventListener('click', e => {
   document.querySelector('.query .tel .notice').className = 'notice'
 
   talk.className = 'talk show'
+  // 結束對話時開啟animate
+  person.classList.add('animate')
 })
 
 
@@ -743,7 +779,7 @@ querySubmit.addEventListener('click', e => {
   const queryFormCheck = new CheckForm(inputQueryName, inputQueryTel, 'query')
   queryFormCheck.checkForm();
 
-  if(queryFormCheck.notice){
+  if (queryFormCheck.notice) {
     return
   }
   // if (inputQueryName.value.trim() == '' && inputQueryTel.value.trim() == '') {
@@ -849,6 +885,7 @@ cancelOut.addEventListener('click', e => {
   document.querySelector('.cancel .name .notice').className = 'notice'
   document.querySelector('.cancel .tel .notice').className = 'notice'
 
+  person.classList.add('animate')
   talk.className = 'talk show'
 })
 
@@ -859,7 +896,7 @@ cancelSubmit.addEventListener('click', e => {
   // 判斷有無填寫資料
   const cancelFormCheck = new CheckForm(inputCancelName, inputCancelTel, 'cancel')
   cancelFormCheck.checkForm();
-  if(cancelFormCheck.notice){
+  if (cancelFormCheck.notice) {
     return
   }
 
@@ -958,6 +995,8 @@ cancelSubmit.addEventListener('click', e => {
       await updateDoc(doc(db, 'bookingSeat', tableNum), data)
       dialogBox.className = 'dialogBox show bookSuccess'
       dialogTxt.textContent = `預約座位 ${tableNum} 已取消!`
+
+      person.classList.add('animate')
       talk.className = 'talk show';
 
       const unsub = onSnapshot(doc(db, "bookingSeat", tableNum), { includeMetadataChanges: true }, (doc) => {
