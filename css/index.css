@@ -1,0 +1,658 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  background: url(../images/bg.jpg)no-repeat;
+  padding: 0px;
+  margin: 0;
+  list-style: none;
+  overflow-X: hidden;
+  overflow: hidden;
+}
+
+h1{
+  font-size: 2.6rem;
+  font-weight: normal;
+  margin-top: 0;
+  text-align: center;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+@font-face {
+  font-family: Pixel;
+  src: url(../assets/點陣字體.ttf);
+}
+
+.ver{
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.container {
+  position: relative;
+  margin: 15px;
+}
+
+.computer {
+  background: #fffb14;
+  display: block;
+  top: 11px;
+  width: 39px;
+  height: 21px;
+  left: 8px;
+  position: relative;
+  box-shadow: 0px 0px 10px 0px #fffb14,
+    0px 0px 10px 0px #fffb14;
+  animation: computer .2s infinite linear;
+}
+
+@keyframes computer {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: .3;
+  }
+}
+
+
+.box,
+.person {
+  /* border: 1px solid #51f9ff; */
+  position: absolute;
+  box-sizing: border-box;
+  /* opacity: .4; */
+  text-align: center;
+}
+
+.box {
+  /* border: 1px solid yellow;
+  opacity: .5; */
+}
+
+.bookPerson {
+  top: -25px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: 3;
+  height: 34px;
+  width: 39px;
+  margin: auto;
+  /* background: url(../images/Screenshotter--YouTube--0’02”.jpg) #fff; */
+  /* background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; */
+  border-radius: 50%;
+  animation: person .3s infinite alternate;
+}
+
+.bookPerson::before {
+  content: url(../images/circle.png);
+  position: absolute;
+  top: -1px;
+  left: 0;
+}
+
+.tableNum {
+  font-size: .5rem;
+  display: block;
+  padding-top: .7rem;
+  text-align: center;
+  font-weight: bold;
+  color: #492715;
+  font-family: 'Press Start 2P', cursive;
+
+}
+
+.person {
+  /* background: yellow; */
+  /* outline: 1px solid blue; */
+  z-index: 1;
+  background: url(../images/front00.png)no-repeat;
+  animation: person .3s infinite alternate;
+
+}
+
+.person .talk {
+  content: url(../images/dialog4.png);
+  position: relative;
+  transform: scaleX(1);
+  top: -10px;
+  opacity: 0;
+  /* top: 0px;
+  left:42px; */
+  transition: .5s;
+}
+
+.person .talk.show {
+  opacity: 1;
+  top: -25px;
+  left: 2px;
+  /* top: 11px;
+  left:42px; */
+  transition: .5s;
+}
+
+
+.person.top {
+  background: url(../images/back01.png)no-repeat;
+  /* animation: top .8s 1 alternate; */
+}
+
+.person.top-stop {
+  background: url(../images/back00.png)no-repeat;
+}
+
+
+@keyframes person {
+  0% {
+    margin-top: 3px;
+  }
+
+
+  100% {
+    margin-top: 0px;
+  }
+}
+
+
+@keyframes top {
+  0% {
+    background: url(../images/back01.png)no-repeat;
+  }
+
+  50% {
+    background: url(../images/back02.png)no-repeat;
+  }
+
+
+  100% {
+    background: url(../images/back01.png)no-repeat;
+  }
+}
+
+
+.person.down {
+  /* animation: down .8s infinite alternate; */
+  background: url(../images/front01.png)no-repeat;
+}
+
+.person.down-stop {
+  background: url(../images/front00.png)no-repeat;
+}
+
+
+@keyframes down {
+  0% {
+    background: url(../images/front01.png)no-repeat;
+  }
+
+  50% {
+    background: url(../images/front02.png)no-repeat;
+  }
+
+  100% {
+    background: url(../images/front01.png)no-repeat;
+  }
+}
+
+.person.left {
+  /* animation: left 1s infinite alternate; */
+  background: url(../images/left02.png)no-repeat;
+}
+
+.person.left-stop {
+  background: url(../images/left00.png)no-repeat;
+}
+
+@keyframes left {
+  0% {
+    background: url(../images/left02.png)no-repeat;
+  }
+
+  50% {
+    background: url(../images/left01.png)no-repeat;
+  }
+
+  100% {
+    background: url(../images/left02.png)no-repeat;
+  }
+}
+
+.person.right {
+  /* animation: right 1s infinite alternate; */
+  background: url(../images/right02.png)no-repeat;
+}
+
+.person.right-stop {
+  background: url(../images/right00.png)no-repeat;
+}
+
+@keyframes right {
+  0% {
+    background: url(../images/right02.png)no-repeat;
+  }
+
+  50% {
+    background: url(../images/right01.png)no-repeat;
+  }
+
+  100% {
+    background: url(../images/right02.png)no-repeat;
+  }
+}
+
+
+/* dialogBox */
+.dialogBox {
+  width: 70vw;
+  background: #fff;
+  border: 5px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 9px #fff,
+    inset 0px 0px 0px 15px #4870a0,
+    inset 0px 8px 0px 15px #a0d0e0,
+    inset 5px 8px 0px 15px #a0d0e0,
+    inset -5px 8px 0px 15px #a0d0e0,
+    0px 4px 0px 0px #4870a0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2rem;
+  z-index: 99;
+  border-radius: 10px;
+  font-family: Pixel;
+  font-weight: 300;
+  padding: 50px 55px;
+  box-sizing: border-box;
+  font-size: 3.7rem;
+  letter-spacing: -3px;
+  opacity: 0;
+  display: none;
+}
+
+
+.dialogBox.show {
+  opacity: 1;
+  display: block;
+}
+
+.dialogBox.show.cannotBook {
+  border: 5px solid #b52828;
+  background: #fbeded;
+  box-shadow: inset 0px 0px 0px 9px #fbeded,
+    inset 0px 0px 0px 15px #b52828,
+    inset 0px 8px 0px 15px #e68b8b,
+    inset 5px 8px 0px 15px #e68b8b,
+    inset -5px 8px 0px 15px #e68b8b,
+    0px 4px 0px 0px #b52828;
+}
+
+.dialogBox.show.cannotBook .option {
+  display: none;
+}
+
+.dialogBox.show.bookSuccess .option {
+  display: none;
+}
+
+.option {
+  position: relative;
+  margin: 12px;
+}
+
+.option div {
+  padding-left: 40px;
+}
+
+
+.arrow {
+  display: block;
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 11px;
+  left: 0;
+  background: #1f1f1f;
+  box-shadow:
+    0px 0px 0px 0px #000,
+    0px 6px 0px 0px #000,
+    0px 12px 0px 0px #000,
+    0px 18px 0px 0px #000,
+    0px 24px 0px 0px #000,
+    6px 6px 0px 0px #1f1f1f,
+    6px 12px 0px 0px #000,
+    6px 18px 0px 0px #000,
+    12px 12px 0px 0px #1f1f1f;
+  animation: bling .7s infinite;
+}
+
+.arrow.true {
+  top: 11px;
+}
+
+.arrow.false {
+  top: 69px;
+}
+
+@keyframes bling {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.checkbox-group {
+  /* background-color: green; */
+}
+
+.checkbox-group input{
+  width: 0%;
+  font-size: 0;
+  border: 0;
+}
+
+.checkbox-group{
+  position: relative;
+}
+
+.checkbox-group .focus+label::before{
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 11px;
+  left: 0;
+  background: #1f1f1f;
+  box-shadow:
+    0px 0px 0px 0px #000,
+    0px 6px 0px 0px #000,
+    0px 12px 0px 0px #000,
+    0px 18px 0px 0px #000,
+    0px 24px 0px 0px #000,
+    6px 6px 0px 0px #1f1f1f,
+    6px 12px 0px 0px #000,
+    6px 18px 0px 0px #000,
+    12px 12px 0px 0px #1f1f1f;
+  animation: bling .7s infinite;
+}
+
+/* booking */
+.booking, .query, .cancel {
+  background: #fff;
+  border: 5px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 9px #fff,
+    inset 0px 0px 0px 15px #4870a0,
+    inset 0px 8px 0px 15px #a0d0e0,
+    inset 5px 8px 0px 15px #a0d0e0,
+    inset -5px 8px 0px 15px #a0d0e0,
+    0px 4px 0px 0px #4870a0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 99;
+  border-radius: 10px;
+  font-family: Pixel;
+  font-weight: 300;
+  /* padding:50px 55px; */
+  box-sizing: border-box;
+  font-size: 2rem;
+  letter-spacing: -3px;
+  opacity: 0;
+  display: none;
+  height: 85vh;
+}
+
+.query, .cancel {
+  height: 50vh;
+}
+
+
+.query .name,
+.cancel .name {
+  margin-top: 20px;
+}
+
+.booking.show,
+.query.show,
+.cancel.show {
+  opacity: 1;
+  display: block;
+}
+
+.booking form {
+  margin: 40px 55px;
+  height: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.query form,
+.cancel form {
+  margin: 0px 55px;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+}
+
+
+
+input, select {
+  border: 0;
+  border-bottom: 5px solid #4870a0;
+  width: 100%;
+  font-family: Pixel;
+  font-size: 2rem;
+  outline: 0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  position: relative;
+}
+
+.input-group label {
+  width: 100%;
+  max-width: 80px;
+  padding: 5px;
+}
+
+.input-group .notice {
+  color: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.input-group .notice.show {
+  display: block;
+}
+
+.input-group .notice.show.shock {
+  animation: shock .1s 5;
+}
+
+@keyframes shock {
+  0% {
+    top: 0px;
+    right: 0px;
+  }
+
+  25% {
+    top: -2px;
+    right: 2;
+  }
+
+  50% {
+    right: 2px;
+    top: 2px;
+  }
+
+  75% {
+    right: -2px;
+    top: -2px;
+  }
+
+  100% {
+    top: 0;
+    right: 0;
+  }
+}
+
+
+/*圖片上傳*/
+
+.shot {
+  flex-direction: column;
+}
+
+
+.pic {
+  width: 250px;
+  height: 250px;
+  border: 5px solid #4870a0;
+  background: #fff;
+  color: #4870a0;
+  font-size: 8rem;
+  text-align: center;
+  line-height: 300px;
+  margin: auto;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+  background-image: url(../images/shot.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+
+input#file-upload-button {
+  margin-right: 10px;
+  background-color: #1f1f1f;
+}
+
+progress {
+  width: 100%;
+  border-radius: 0px;
+  margin: 5px 0;
+}
+
+
+#uploader {
+  padding: 5px 3px;
+  box-sizing: border-box;
+  width: 260px;
+  margin: auto;
+  border: 5px solid #4870a0;
+  border-top: 0px;
+  position: relative;
+}
+
+#uploader .run {
+  background-color: #3AB54A;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+
+
+.input-group label.pic-control {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 30px;
+  font-size: 1.33rem;
+  line-height: 30px;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0;
+  z-index: 1;
+  position: relative;
+}
+
+
+
+/*填資料區*/
+
+.input-group .tableNum {
+  font-size: 1.5rem;
+  color:#000;
+  padding: 5px 0;
+  font-weight: normal;
+  line-height: 32px;
+}
+
+.btn_booking {
+  border: 5px solid #4870a0;
+  width: 100%;
+  padding: 10px 20px;
+  font-family: Pixel;
+  font-size: 1.8rem;
+  color: #fff;
+  background: #4870a0;
+  cursor: pointer;
+}
+
+.btn_out {
+  background: #fff;
+  color: #4870a0;
+  border-right: 0px;
+}
+
+.btn_booking:hover {
+  background: #fff;
+  color: #4870a0;
+  transition: .3s;
+}
+
+.btn_out:hover {
+  background: #a0d0e0;
+}
+
+
+.input-group.btn {
+  margin-bottom: 0;
+  margin-top: 25px;
+}
