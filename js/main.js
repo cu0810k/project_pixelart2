@@ -405,8 +405,8 @@ document.addEventListener('keyup', e => {
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
-    if (map[x][y - 1] !== 1 && map[x][y - 1] !== 0) {
-      // // console.log('是桌子，編號為：' + map[x][y - 1])
+    if (map[x][y - 1] !== 1 && map[x][y - 1] !== 0 && map[x][y - 1] !== undefined) {
+      console.log('是桌子，編號為：' + map[x][y - 1])
       tableNum = map[x][y - 1]
       talk.className = 'talk show'
     }
@@ -420,8 +420,8 @@ document.addEventListener('keyup', e => {
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
-    if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com') {
-      // // console.log('是桌子，編號為：' + map[x][y + 1])
+      if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com' && map[x][y + 1] !== undefined) {
+      console.log('是桌子，編號為：' + map[x][y + 1])
       tableNum = map[x][y + 1]
       talk.className = 'talk show'
 
