@@ -126,31 +126,21 @@ function creatSeat () {
 
         if (hasBookSeat.includes(map[a][b]) && res !== -1) {
 
-          if (hasBookShot[res] === '') {
-            div.innerHTML = `
-              <div class="bookPerson"
-              style="
-              background: url(images/shot.jpg) #000;
-              background-size: contain;
-              background-repeat: no-repeat;
-              background-position: center;
-              "
-              ></div>
-              <span class="
-              tableNum" data-num="${map[a][b]}">${map[a][b]}</span>`
-          } else {
-            div.innerHTML = `
-              <div class="bookPerson"
-              style="
-              background: url(${hasBookShot[res]}) #fff;
-              background-size: contain;
-              background-repeat: no-repeat;
-              background-position: center;
-              "
-              ></div>
-              <span class="
-              tableNum" data-num="${map[a][b]}">${map[a][b]}</span>`
-          }
+          // 判斷對應的大頭貼是否有網址
+          // 沒有的話給預設圖片
+          let picUrl = hasBookShot[res] ? hasBookShot[res] : 'images/shot.jpg'
+
+          div.innerHTML = `
+          <div class="bookPerson"
+          style="
+          background: url(${picUrl}) #000;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          "
+          ></div>
+          <span class="
+          tableNum" data-num="${map[a][b]}">${map[a][b]}</span>`
 
         } else {
           div.innerHTML = `<span class="
@@ -203,13 +193,6 @@ window.addEventListener('keydown', e => {
 
 
   const k = e.key
-
-  // if (k == 'Escape') {
-  //   dialogBox.className = 'dialogBox';
-  //   bookForm.className = 'booking';
-  //   queryForm.className = 'query';
-  //   //藉由ESC關掉的表單 資料都要重置
-  // }
 
   // 預約對話框的判斷
   if (k == 'ArrowUp' && dialogBox.classList.contains('book')) {
@@ -420,7 +403,7 @@ document.addEventListener('keyup', e => {
     // console.log(`map[${x}][${y}]`)
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
-      if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com' && map[x][y + 1] !== undefined) {
+    if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com' && map[x][y + 1] !== undefined) {
       console.log('是桌子，編號為：' + map[x][y + 1])
       tableNum = map[x][y + 1]
       talk.className = 'talk show'
@@ -531,7 +514,6 @@ bookingOut.addEventListener('click', e => {
 
   // 表單重置
   document.forms["bookingForm"].reset();
-  // pic.innerHTML = "???"
   pic.style = ''
   uploader.innerHTML = `
   <label for="file-upload" class="pic-control">
@@ -549,29 +531,36 @@ bookingOut.addEventListener('click', e => {
 bookingSubmit.addEventListener('click', e => {
 
   // 判斷有無填寫資料
-  if (inputBookName.value.trim() == '' && inputBookTel.value.trim() == '') {
-    document.querySelector('.booking .name .notice').className = 'notice show shock'
-    document.querySelector('.booking .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.booking .name .notice').className = 'notice show'
-      document.querySelector('.booking .tel .notice').className = 'notice show'
-    }, 500)
-
-    return
-  } else if (inputBookName.value.trim() == '') {
-    document.querySelector('.booking .name .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.booking .name .notice').className = 'notice show'
-    }, 500)
-    return
-
-  } else if (inputBookTel.value.trim() == '') {
-    document.querySelector('.booking .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.booking .tel .notice').className = 'notice show'
-    }, 500)
+  const bookFormCheck = new CheckForm(inputBookName, inputBookTel, 'booking')
+  console.log(bookFormCheck.notice)
+  bookFormCheck.checkForm();
+  if(bookFormCheck.notice){
     return
   }
+
+  // if (inputBookName.value.trim() == '' && inputBookTel.value.trim() == '') {
+  //   document.querySelector('.booking .name .notice').className = 'notice show shock'
+  //   document.querySelector('.booking .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.booking .name .notice').className = 'notice show'
+  //     document.querySelector('.booking .tel .notice').className = 'notice show'
+  //   }, 500)
+
+  //   return
+  // } else if (inputBookName.value.trim() == '') {
+  //   document.querySelector('.booking .name .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.booking .name .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+
+  // } else if (inputBookTel.value.trim() == '') {
+  //   document.querySelector('.booking .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.booking .tel .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+  // }
 
   talk.className = 'talk show'
 
@@ -584,6 +573,8 @@ bookingSubmit.addEventListener('click', e => {
     shot: shot || '',
     status: true
   }
+
+  console.log(data)
 
   // 先去資料庫搜尋這個人有無預約
   const bookingSeatRef = collection(db, "bookingSeat")
@@ -636,38 +627,7 @@ bookingSubmit.addEventListener('click', e => {
 
 
         // 重抓一次座位資訊
-        ~async function () {
-          seatBooking = []
-          const querySnapshot = await getDocs(collection(db, "bookingSeat"));
-          querySnapshot.forEach((doc) => {
-            seatBooking.push([
-              doc.id, doc.data().status, doc.data().shot
-            ])
-          });
-
-          // console.log(seatBooking)
-
-          // 找出已被預約的座位 ['A-1', true]
-          const result = seatBooking.filter(item => item[1] == true);
-          // console.log(result);
-
-          // 再把已被預約的座位陣列過濾一次 (取桌號)
-          result.forEach((item, index) => {
-            hasBookSeat.push(item[0])
-          })
-          // console.log(hasBookSeat)
-
-
-          // 再把已被預約的座位陣列過濾一次 (取大頭貼網址)
-          result.forEach((item, index) => {
-            hasBookShot.push(item[2])
-          })
-          // console.log(hasBookShot)
-
-
-          // 製造座位div
-          creatSeat()
-        }()
+        getSeat()
 
       });
 
@@ -716,16 +676,7 @@ picUpload.addEventListener('change', e => {
   // 先設定進度條的寬為0
   uploaderRun.style.width = '0%'
 
-  // 官網範例-上傳成功
-  // uploadBytes(storageRef, file).then((snapshot) => {
-  //   // console.log('Uploaded a blob or file!');
-  // });
-
-  // // Upload the file and metadata
   const uploadTask = uploadBytesResumable(storageRef, file);
-
-
-
 
 
   // // .on()監聽並連動 progress 讀取條
@@ -789,29 +740,35 @@ queryOut.addEventListener('click', e => {
 querySubmit.addEventListener('click', e => {
 
   // 判斷有無填寫資料
-  if (inputQueryName.value.trim() == '' && inputQueryTel.value.trim() == '') {
-    document.querySelector('.query .name .notice').className = 'notice show shock'
-    document.querySelector('.query .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.query .name .notice').className = 'notice show'
-      document.querySelector('.query .tel .notice').className = 'notice show'
-    }, 500)
+  const queryFormCheck = new CheckForm(inputQueryName, inputQueryTel, 'query')
+  queryFormCheck.checkForm();
 
-    return // console.log('請填名字跟電話!')
-  } else if (inputQueryName.value.trim() == '') {
-    document.querySelector('.query .name .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.query .name .notice').className = 'notice show'
-    }, 500)
-    return // console.log('請填名字!')
-
-  } else if (inputQueryTel.value.trim() == '') {
-    document.querySelector('.query .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.query .tel .notice').className = 'notice show'
-    }, 500)
-    return // console.log('請填電話!')
+  if(queryFormCheck.notice){
+    return
   }
+  // if (inputQueryName.value.trim() == '' && inputQueryTel.value.trim() == '') {
+  //   document.querySelector('.query .name .notice').className = 'notice show shock'
+  //   document.querySelector('.query .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.query .name .notice').className = 'notice show'
+  //     document.querySelector('.query .tel .notice').className = 'notice show'
+  //   }, 500)
+
+  //   return
+  // } else if (inputQueryName.value.trim() == '') {
+  //   document.querySelector('.query .name .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.query .name .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+
+  // } else if (inputQueryTel.value.trim() == '') {
+  //   document.querySelector('.query .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.query .tel .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+  // }
 
 
   // 先將資料集合在一起
@@ -900,29 +857,35 @@ cancelOut.addEventListener('click', e => {
 
 cancelSubmit.addEventListener('click', e => {
   // 判斷有無填寫資料
-  if (inputCancelName.value.trim() == '' && inputCancelTel.value.trim() == '') {
-    document.querySelector('.cancel .name .notice').className = 'notice show shock'
-    document.querySelector('.cancel .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.cancel .name .notice').className = 'notice show'
-      document.querySelector('.cancel .tel .notice').className = 'notice show'
-    }, 500)
-
-    return
-  } else if (inputCancelName.value.trim() == '') {
-    document.querySelector('.cancel .name .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.cancel .name .notice').className = 'notice show'
-    }, 500)
-    return
-
-  } else if (inputCancelTel.value.trim() == '') {
-    document.querySelector('.cancel .tel .notice').className = 'notice show shock'
-    setTimeout(() => {
-      document.querySelector('.cancel .tel .notice').className = 'notice show'
-    }, 500)
+  const cancelFormCheck = new CheckForm(inputCancelName, inputCancelTel, 'cancel')
+  cancelFormCheck.checkForm();
+  if(cancelFormCheck.notice){
     return
   }
+
+  // if (inputCancelName.value.trim() == '' && inputCancelTel.value.trim() == '') {
+  //   document.querySelector('.cancel .name .notice').className = 'notice show shock'
+  //   document.querySelector('.cancel .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.cancel .name .notice').className = 'notice show'
+  //     document.querySelector('.cancel .tel .notice').className = 'notice show'
+  //   }, 500)
+
+  //   return
+  // } else if (inputCancelName.value.trim() == '') {
+  //   document.querySelector('.cancel .name .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.cancel .name .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+
+  // } else if (inputCancelTel.value.trim() == '') {
+  //   document.querySelector('.cancel .tel .notice').className = 'notice show shock'
+  //   setTimeout(() => {
+  //     document.querySelector('.cancel .tel .notice').className = 'notice show'
+  //   }, 500)
+  //   return
+  // }
 
   // 先將資料集合在一起
   let data = {
@@ -1002,40 +965,10 @@ cancelSubmit.addEventListener('click', e => {
         console.log('source', source)
 
         // 重抓一次座位資訊
-        ~async function () {
-          seatBooking = []
-          hasBookSeat = []
-          hasBookShot = []
-
-          const querySnapshot = await getDocs(collection(db, "bookingSeat"));
-          querySnapshot.forEach((doc) => {
-            seatBooking.push([
-              doc.id, doc.data().status, doc.data().shot
-            ])
-          });
-          // console.log('seatBooking', seatBooking)
-          // 找出已被預約的座位 ['A-1', true]
-          const result = seatBooking.filter(item => item[1] == true);
-          console.log(result);
-
-          // 再把已被預約的座位陣列過濾一次 (取桌號)
-          result.forEach((item, index) => {
-            hasBookSeat.push(item[0])
-          })
-          console.log('hasBookSeat', hasBookSeat)
-
-
-          // 再把已被預約的座位陣列過濾一次 (取大頭貼網址)
-          result.forEach((item, index) => {
-            hasBookShot.push(item[2])
-          })
-          // console.log(hasBookShot)
-
-
-          // 製造座位div
-          creatSeat()
-
-        }()
+        seatBooking = []
+        hasBookSeat = []
+        hasBookShot = []
+        getSeat()
 
       });
 
@@ -1048,3 +981,55 @@ cancelSubmit.addEventListener('click', e => {
   }
 
 })
+
+
+// 練習建構 =================================
+
+function CheckForm (inputName, inputTel, status) {
+
+  // 姓名input
+  this.inputName = inputName
+  // 電話input
+  this.inputTel = inputTel
+  // 姓名notice
+  this.nameNotice = document.querySelector(`.${status} .name .notice`)
+  // 電話notice
+  this.telNotice = document.querySelector(`.${status} .tel .notice`)
+
+  this.notice = false
+}
+
+// 不該把方法放在 function constructor 的原因 ↓
+// https://dylan237.github.io/function-constructor.html
+CheckForm.prototype.checkForm = function () {
+  if (this.inputName.value.trim() == '' && this.inputTel.value.trim() == '') {
+
+    this.nameNotice.className = 'notice show shock'
+    this.telNotice.className = 'notice show shock'
+    setTimeout(() => {
+      this.nameNotice.className = 'notice show'
+      this.telNotice.className = 'notice show'
+    }, 500)
+
+    return this.notice = true
+
+  } else if (this.inputName.value.trim() == '') {
+
+    this.nameNotice.className = 'notice show shock'
+    setTimeout(() => {
+      this.nameNotice.className = 'notice show'
+    }, 500)
+    return this.notice = true
+
+  } else if (this.inputTel.value.trim() == '') {
+
+    this.telNotice.className = 'notice show shock'
+    setTimeout(() => {
+      this.telNotice.className = 'notice show'
+    }, 500)
+    return this.notice = true
+
+  }
+
+  this.notice = false
+}
