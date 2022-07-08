@@ -355,11 +355,6 @@ window.addEventListener('keydown', e => {
 
   }
 
-
-  if (e.code === 'Enter') {
-    console.log('Enter')
-  }
-
 })
 
 
@@ -413,7 +408,7 @@ document.addEventListener('keyup', e => {
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
     if (map[x][y - 1] !== 1 && map[x][y - 1] !== 0 && map[x][y - 1] !== undefined) {
-      console.log('是桌子，編號為：' + map[x][y - 1])
+      // console.log('是桌子，編號為：' + map[x][y - 1])
       tableNum = map[x][y - 1]
       talk.className = 'talk show'
     }
@@ -428,7 +423,7 @@ document.addEventListener('keyup', e => {
 
     // 如果這時候停下是因為遇到桌子，則要出現 dialog
     if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com' && map[x][y + 1] !== undefined) {
-      console.log('是桌子，編號為：' + map[x][y + 1])
+      // console.log('是桌子，編號為：' + map[x][y + 1])
       tableNum = map[x][y + 1]
       talk.className = 'talk show'
 
@@ -534,8 +529,6 @@ const inputCancelTel = document.querySelector('#inputCancelTel')
 // 預約表單 -- 退出
 bookingOut.addEventListener('click', e => {
 
-  console.log('取消退出')
-
   // 結束對話時開啟animate
   person.classList.add('animate')
 
@@ -562,7 +555,7 @@ bookingSubmit.addEventListener('click', e => {
 
   // 判斷有無填寫資料
   const bookFormCheck = new CheckForm(inputBookName, inputBookTel, 'booking')
-  console.log(bookFormCheck.notice)
+  // console.log(bookFormCheck.notice)
   bookFormCheck.checkForm();
   if (bookFormCheck.notice) {
     return
@@ -603,8 +596,6 @@ bookingSubmit.addEventListener('click', e => {
     status: true
   }
 
-  console.log(data)
-
   // 先去資料庫搜尋這個人有無預約
   const bookingSeatRef = collection(db, "bookingSeat")
   const q = query(bookingSeatRef,
@@ -625,10 +616,15 @@ bookingSubmit.addEventListener('click', e => {
       dialogBox.className = 'dialogBox show cannotBook'
       dialogTxt.textContent = `${queryData.inputName}已預約座位 ${queryData.tableNum}，因此不可再預約`
 
+      talk.className = 'talk'
+      person.classList.remove('animate')
+
       // 跳出查無預約時 先讓查詢表格消失
       // 等查無預約消失後 再讓查詢表格出現
       setTimeout(() => {
         dialogBox.className = 'dialogBox'
+        talk.className = 'talk show'
+        person.classList.add('animate')
       }, 1500)
     } else {
       addBook()
@@ -662,6 +658,8 @@ bookingSubmit.addEventListener('click', e => {
 
       setTimeout(() => {
         dialogBox.className = 'dialogBox'
+        talk.className = 'talk show'
+        person.classList.add('animate')
       }, 1000)
     } catch (error) {
       // console.log(error)
@@ -683,9 +681,9 @@ bookingSubmit.addEventListener('click', e => {
   document.querySelector('.booking .tel .notice').className = 'notice'
 
 
-  talk.className = 'talk show'
-  // 結束對話時開啟animate
-  person.classList.add('animate')
+  // talk.className = 'talk show'
+  // // 結束對話時開啟animate
+  // person.classList.add('animate')
 
 });
 
@@ -699,7 +697,6 @@ picUpload.addEventListener('change', e => {
   const picTxt = document.querySelector('.pic-control')
   const uploaderRun = document.querySelector('#uploader .run')
 
-  console.log(e)
   // 取得檔案資訊
   const file = e.target.files[0];
   const path = file.name;

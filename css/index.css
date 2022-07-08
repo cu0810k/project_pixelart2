@@ -127,7 +127,7 @@ img, svg {
   animation: person .3s infinite alternate;
 }
 
-.person .talk {
+.person .talk:after {
   content: url(../images/dialog4.png);
   position: relative;
   transform: scaleX(1);
@@ -138,7 +138,7 @@ img, svg {
   transition: .5s;
 }
 
-.person .talk.show {
+.person .talk.show:after {
   opacity: 1;
   top: -25px;
   left: 2px;
