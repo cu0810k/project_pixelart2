@@ -192,6 +192,7 @@ window.addEventListener('keydown', e => {
 
   const k = e.key
 
+  // 開啟對話框後的上下選項移動
   function chooseOption (status) {
     if (k == 'ArrowUp' && dialogBox.classList.contains(status)) {
       optionTop.focus()
@@ -209,42 +210,10 @@ window.addEventListener('keydown', e => {
   chooseOption('querySuccess')
 
 
-  // // 預約對話框的判斷
-  // if (k == 'ArrowUp' && dialogBox.classList.contains('book')) {
-  //   optionTop.focus()
-  //   optionTop.className = 'focus'
-  //   optionDown.className = ''
-  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('book')) {
-  //   optionDown.focus()
-  //   optionTop.className = ''
-  //   optionDown.className = 'focus'
-  // }
-
-  // // 查詢對話框的判斷
-  // if (k == 'ArrowUp' && dialogBox.classList.contains('comp')) {
-  //   optionTop.focus()
-  //   optionTop.className = 'focus'
-  //   optionDown.className = ''
-  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('comp')) {
-  //   optionDown.focus()
-  //   optionTop.className = ''
-  //   optionDown.className = 'focus'
-  // }
-
-  // // 查詢結果框的判斷
-  // if (k == 'ArrowUp' && dialogBox.classList.contains('querySuccess')) {
-  //   optionTop.focus()
-  //   optionTop.className = 'focus'
-  //   optionDown.className = ''
-  // } else if (k == 'ArrowDown' && dialogBox.classList.contains('querySuccess')) {
-  //   optionDown.focus()
-  //   optionTop.className = ''
-  //   optionDown.className = 'focus'
-  // }
 
 
-  // 當所有的表格跟對話都沒出現的時候才可以走
-  // >>> 當有animate才可以走
+  // 在對話的時候，person會移除animate > 此時不能走
+  // 也就是說當person有animate時才可以走
   // 上  ArrowUp
   if (k == 'ArrowUp' && person.classList.contains('animate')) {
     talk.className = 'talk'
@@ -293,24 +262,15 @@ window.addEventListener('keydown', e => {
   }
 
 
+  // Z 開啟對話  KeyZ
   if (e.code === 'KeyZ' && talk.className === 'talk show') {
 
     talk.className = 'talk';
-
-    // 放上面會導致第一次按對話框 直接按是 無效
-    // optionTop.focus();
-    // optionTop.className = 'focus'
-    // optionDown.className = ''
+    // 當在溝通時關掉animate
+    person.classList.remove('animate')
 
 
-    // console.log(useCom)
-    // 將桌號與陣列hasBookSeat做交叉比對
-    // 若為true，則代表座位已被預約
     if (useCom) {
-
-      // 當在溝通時關掉animate
-      person.classList.remove('animate')
-
       dialogBox.className = 'dialogBox show comp'
       dialogTxt.textContent = `打開了電脳!`
 
@@ -321,10 +281,10 @@ window.addEventListener('keydown', e => {
       optionDownText.innerText = '取消預約';
 
     } else if (hasBookSeat.includes(tableNum)) {
+      // 將【目前桌號】與hasBookSeat做交叉比對，若為true則代表座位已被預約
 
       dialogBox.className = 'dialogBox show cannotBook'
       dialogTxt.textContent = `座位${tableNum}已被預約，請預約其他座位QQ`
-      person.classList.remove('animate')
 
       setTimeout(() => {
         dialogBox.className = 'dialogBox'
@@ -334,9 +294,6 @@ window.addEventListener('keydown', e => {
 
 
     } else {
-
-      // 當在溝通時關掉animate
-      person.classList.remove('animate')
 
       dialogBox.className = 'dialogBox show book'
       dialogTxt.textContent = `目前座位${tableNum}無人預約，是否要預約?`
@@ -486,9 +443,10 @@ optionDown.addEventListener('keydown', e => {
 
     // 離開查詢結果表單要重置
     // 關閉表單
-    document.forms["queryForm"].reset();
-    document.querySelector('.query .name .notice').className = 'notice'
-    document.querySelector('.query .tel .notice').className = 'notice'
+    queryFormReset()
+    // document.forms["queryForm"].reset();
+    // document.querySelector('.query .name .notice').className = 'notice'
+    // document.querySelector('.query .tel .notice').className = 'notice'
 
   }
 
@@ -526,6 +484,19 @@ const inputCancelTel = document.querySelector('#inputCancelTel')
 
 
 
+function bookingFormReset(){
+  document.forms["bookingForm"].reset();
+  pic.style = ''
+  uploader.innerHTML = `
+  <label for="file-upload" class="pic-control">
+            上傳大頭貼
+          </label>
+          <div class="run"></div>`
+  document.querySelector('.name .notice').className = 'notice'
+  document.querySelector('.tel .notice').className = 'notice'
+}
+
+
 // 預約表單 -- 退出
 bookingOut.addEventListener('click', e => {
 
@@ -536,15 +507,7 @@ bookingOut.addEventListener('click', e => {
   bookForm.className = 'booking'
 
   // 表單重置
-  document.forms["bookingForm"].reset();
-  pic.style = ''
-  uploader.innerHTML = `
-  <label for="file-upload" class="pic-control">
-            上傳大頭貼
-          </label>
-          <div class="run"></div>`
-  document.querySelector('.name .notice').className = 'notice'
-  document.querySelector('.tel .notice').className = 'notice'
+  bookingFormReset()
 
   talk.className = 'talk show'
 })
@@ -560,31 +523,6 @@ bookingSubmit.addEventListener('click', e => {
   if (bookFormCheck.notice) {
     return
   }
-
-  // if (inputBookName.value.trim() == '' && inputBookTel.value.trim() == '') {
-  //   document.querySelector('.booking .name .notice').className = 'notice show shock'
-  //   document.querySelector('.booking .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.booking .name .notice').className = 'notice show'
-  //     document.querySelector('.booking .tel .notice').className = 'notice show'
-  //   }, 500)
-
-  //   return
-  // } else if (inputBookName.value.trim() == '') {
-  //   document.querySelector('.booking .name .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.booking .name .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-
-  // } else if (inputBookTel.value.trim() == '') {
-  //   document.querySelector('.booking .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.booking .tel .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-  // }
-
 
   // 先將資料集合在一起
   let data = {
@@ -670,20 +608,7 @@ bookingSubmit.addEventListener('click', e => {
   bookForm.className = 'booking'
 
   // 表單重置
-  document.forms["bookingForm"].reset();
-  pic.style = ''
-  uploader.innerHTML = `
-  <label for="file-upload" class="pic-control">
-            上傳大頭貼
-          </label>
-          <div class="run"></div>`
-  document.querySelector('.booking .name .notice').className = 'notice'
-  document.querySelector('.booking .tel .notice').className = 'notice'
-
-
-  // talk.className = 'talk show'
-  // // 結束對話時開啟animate
-  // person.classList.add('animate')
+  bookingFormReset()
 
 });
 
@@ -750,6 +675,12 @@ picUpload.addEventListener('change', e => {
 
 // ==========================
 
+function queryFormReset(){
+  document.forms["queryForm"].reset();
+
+  document.querySelector('.query .name .notice').className = 'notice'
+  document.querySelector('.query .tel .notice').className = 'notice'
+}
 
 // 查詢預約 -- 退出
 queryOut.addEventListener('click', e => {
@@ -758,10 +689,7 @@ queryOut.addEventListener('click', e => {
   queryForm.className = 'query'
 
   // 表單重置
-  document.forms["queryForm"].reset();
-
-  document.querySelector('.query .name .notice').className = 'notice'
-  document.querySelector('.query .tel .notice').className = 'notice'
+  queryFormReset()
 
   talk.className = 'talk show'
   // 結束對話時開啟animate
@@ -779,30 +707,6 @@ querySubmit.addEventListener('click', e => {
   if (queryFormCheck.notice) {
     return
   }
-  // if (inputQueryName.value.trim() == '' && inputQueryTel.value.trim() == '') {
-  //   document.querySelector('.query .name .notice').className = 'notice show shock'
-  //   document.querySelector('.query .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.query .name .notice').className = 'notice show'
-  //     document.querySelector('.query .tel .notice').className = 'notice show'
-  //   }, 500)
-
-  //   return
-  // } else if (inputQueryName.value.trim() == '') {
-  //   document.querySelector('.query .name .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.query .name .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-
-  // } else if (inputQueryTel.value.trim() == '') {
-  //   document.querySelector('.query .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.query .tel .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-  // }
-
 
   // 先將資料集合在一起
   let data = {
@@ -870,6 +774,14 @@ querySubmit.addEventListener('click', e => {
 
 // ==========================
 
+
+function cancelFormReset(){
+  document.forms["cancelForm"].reset();
+  document.querySelector('.cancel .name .notice').className = 'notice'
+  document.querySelector('.cancel .tel .notice').className = 'notice'
+}
+
+
 // 取消預約 -- 退出
 cancelOut.addEventListener('click', e => {
 
@@ -877,10 +789,7 @@ cancelOut.addEventListener('click', e => {
   cancelForm.className = 'cancel'
 
   // 表單重置
-  document.forms["cancelForm"].reset();
-
-  document.querySelector('.cancel .name .notice').className = 'notice'
-  document.querySelector('.cancel .tel .notice').className = 'notice'
+  cancelFormReset()
 
   person.classList.add('animate')
   talk.className = 'talk show'
@@ -896,30 +805,6 @@ cancelSubmit.addEventListener('click', e => {
   if (cancelFormCheck.notice) {
     return
   }
-
-  // if (inputCancelName.value.trim() == '' && inputCancelTel.value.trim() == '') {
-  //   document.querySelector('.cancel .name .notice').className = 'notice show shock'
-  //   document.querySelector('.cancel .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.cancel .name .notice').className = 'notice show'
-  //     document.querySelector('.cancel .tel .notice').className = 'notice show'
-  //   }, 500)
-
-  //   return
-  // } else if (inputCancelName.value.trim() == '') {
-  //   document.querySelector('.cancel .name .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.cancel .name .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-
-  // } else if (inputCancelTel.value.trim() == '') {
-  //   document.querySelector('.cancel .tel .notice').className = 'notice show shock'
-  //   setTimeout(() => {
-  //     document.querySelector('.cancel .tel .notice').className = 'notice show'
-  //   }, 500)
-  //   return
-  // }
 
   // 先將資料集合在一起
   let data = {
@@ -939,6 +824,7 @@ cancelSubmit.addEventListener('click', e => {
 
     const querySnapshot = await getDocs(q);
     if (querySnapshot.docs.length) {
+
       let queryData = {}
       querySnapshot.forEach((doc) => {
         // console.log(doc.id, " => ", doc.data());
@@ -950,11 +836,9 @@ cancelSubmit.addEventListener('click', e => {
       // 查到預約後開始進行刪除的動作
       // 關閉表單
       cancelForm.className = 'cancel'
-      // 表單重置
-      document.forms["cancelForm"].reset();
-      document.querySelector('.cancel .name .notice').className = 'notice'
-      document.querySelector('.cancel .tel .notice').className = 'notice'
 
+      // 表單重置
+      cancelFormReset()
 
       // 刪除資料
       cancelBook(queryData.tableNum)
