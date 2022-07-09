@@ -5,11 +5,10 @@ body {
   padding: 0px;
   margin: 0;
   list-style: none;
-  overflow-X: hidden;
   overflow: hidden;
 }
 
-h1{
+h1 {
   font-size: 2.6rem;
   font-weight: normal;
   margin-top: 0;
@@ -30,7 +29,72 @@ img, svg {
   src: url(../assets/點陣字體.ttf);
 }
 
-.ver{
+.instruction {
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 5px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 9px #fff,
+    inset 0px 0px 0px 15px #4870a0,
+    inset 0px 8px 0px 15px #a0d0e0,
+    inset 5px 8px 0px 15px #a0d0e0,
+    inset -5px 8px 0px 15px #a0d0e0,
+    0px 4px 0px 0px #4870a0;
+  border-radius: 10px;
+  padding: 70px 55px;
+  box-sizing: border-box;
+  display: none;
+}
+
+.instruction.show{
+  display: block;
+}
+
+.close {
+  border: 5px solid #4870a0;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top:-25px;
+  right: -25px;
+  cursor: pointer;
+}
+
+.close::before,
+.close::after{
+  content: '';
+  display: block;
+  width: 30px;
+  height: 5px;
+  border-radius: 20px;
+  background: #4870a0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(50deg);
+}
+
+
+.close:hover{
+  background: #4870a0;
+}
+
+.close:hover::before,
+.close:hover::after{
+  background: #fff;
+}
+
+.close::after{
+  transform: translate(-50%, -50%) rotate(-50deg);
+
+}
+
+.ver {
   color: #fff;
   position: fixed;
   bottom: 0;
@@ -123,7 +187,7 @@ img, svg {
   background: url(../images/front00.png)no-repeat;
 }
 
-.person.animate{
+.person.animate {
   animation: person .3s infinite alternate;
 }
 
@@ -375,17 +439,17 @@ img, svg {
   /* background-color: green; */
 }
 
-.checkbox-group input{
+.checkbox-group input {
   width: 0%;
   font-size: 0;
   border: 0;
 }
 
-.checkbox-group{
+.checkbox-group {
   position: relative;
 }
 
-.checkbox-group .focus+label::before{
+.checkbox-group .focus+label::before {
   content: '';
   display: block;
   width: 6px;
@@ -620,7 +684,7 @@ progress {
 
 .input-group .tableNum {
   font-size: 1.5rem;
-  color:#000;
+  color: #000;
   padding: 5px 0;
   font-weight: normal;
   line-height: 32px;

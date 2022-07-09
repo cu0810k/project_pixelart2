@@ -42,8 +42,6 @@ async function getSeat () {
     hasBookSeat.push(item[0])
   })
 
-
-
   // 再把已被預約的座位陣列過濾一次 (取大頭貼網址)
   result.forEach((item, index) => {
     hasBookShot.push(item[2])
@@ -154,7 +152,7 @@ function creatSeat () {
 }
 
 
-
+let closeBtn = document.querySelector('.close')
 let person = document.querySelector('.person')
 const talk = document.querySelector('.talk')
 const dialogBox = document.querySelector('.dialogBox')
@@ -208,9 +206,6 @@ window.addEventListener('keydown', e => {
   chooseOption('book')
   chooseOption('comp')
   chooseOption('querySuccess')
-
-
-
 
   // 在對話的時候，person會移除animate > 此時不能走
   // 也就是說當person有animate時才可以走
@@ -312,8 +307,17 @@ window.addEventListener('keydown', e => {
 
   }
 
+  // F2 觀看使用說明
+  if (e.code === 'F2'){
+    document.querySelector('.instruction').classList.toggle('show');
+  }
+
 })
 
+
+closeBtn.addEventListener('click', e => {
+  document.querySelector('.instruction').classList.toggle('show');
+})
 
 // ===========================================================
 
@@ -322,7 +326,6 @@ let useCom = false;
 document.addEventListener('keyup', e => {
 
   const k = e.key
-
 
   // 上
   if (k == 'ArrowUp' && person.classList.contains('animate')) {
@@ -484,7 +487,7 @@ const inputCancelTel = document.querySelector('#inputCancelTel')
 
 
 
-function bookingFormReset(){
+function bookingFormReset () {
   document.forms["bookingForm"].reset();
   pic.style = ''
   uploader.innerHTML = `
@@ -518,13 +521,12 @@ bookingSubmit.addEventListener('click', e => {
 
   // 判斷有無填寫資料
   const bookFormCheck = new CheckForm(inputBookName, inputBookTel, 'booking')
-  // console.log(bookFormCheck.notice)
   bookFormCheck.checkForm();
   if (bookFormCheck.notice) {
     return
   }
 
-  // 先將資料集合在一起
+  // 將資料集合在一起
   let data = {
     inputName: inputBookName.value,
     inputGender: inputBookGender.value,
@@ -541,16 +543,18 @@ bookingSubmit.addEventListener('click', e => {
     where("inputName", "==", data.inputName),
     where("inputTel", "==", data.inputTel))
 
+  queryPerson(q)
+
   async function queryPerson () {
 
     const querySnapshot = await getDocs(q);
     if (querySnapshot.docs.length) {
-
       let queryData = {}
       querySnapshot.forEach((doc) => {
         queryData = doc.data()
       });
 
+      // 有搜尋到跳出不可再預約的dialog
       dialogBox.className = 'dialogBox show cannotBook'
       dialogTxt.textContent = `${queryData.inputName}已預約座位 ${queryData.tableNum}，因此不可再預約`
 
@@ -564,30 +568,26 @@ bookingSubmit.addEventListener('click', e => {
         talk.className = 'talk show'
         person.classList.add('animate')
       }, 1500)
+
     } else {
+
+      // 沒搜尋到則執行新增預約的fn，將資料送到資料庫
       addBook()
     }
 
   }
 
-  queryPerson(q)
 
-
-
-  // 確定此人無預約才將資料送到資料庫
   async function addBook () {
+
     try {
 
       await updateDoc(doc(db, 'bookingSeat', tableNum), data)
-      // console.log('預約成功')
       dialogBox.className = 'dialogBox show bookSuccess'
       dialogTxt.textContent = `預約成功 !`
 
-
       const unsub = onSnapshot(doc(db, "bookingSeat", tableNum), { includeMetadataChanges: true }, (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        // console.log(source, " data: ", doc.data());
-
 
         // 重抓一次座位資訊
         getSeat()
@@ -599,6 +599,7 @@ bookingSubmit.addEventListener('click', e => {
         talk.className = 'talk show'
         person.classList.add('animate')
       }, 1000)
+
     } catch (error) {
       // console.log(error)
     }
@@ -675,7 +676,7 @@ picUpload.addEventListener('change', e => {
 
 // ==========================
 
-function queryFormReset(){
+function queryFormReset () {
   document.forms["queryForm"].reset();
 
   document.querySelector('.query .name .notice').className = 'notice'
@@ -703,7 +704,6 @@ querySubmit.addEventListener('click', e => {
   // 判斷有無填寫資料
   const queryFormCheck = new CheckForm(inputQueryName, inputQueryTel, 'query')
   queryFormCheck.checkForm();
-
   if (queryFormCheck.notice) {
     return
   }
@@ -722,6 +722,8 @@ querySubmit.addEventListener('click', e => {
     where("inputName", "==", data.inputName),
     where("inputTel", "==", data.inputTel))
 
+  queryData(q)
+
   async function queryData () {
 
     const querySnapshot = await getDocs(q);
@@ -733,6 +735,7 @@ querySubmit.addEventListener('click', e => {
 
       // 查到後，暫時關閉查詢表單
       queryForm.className = 'query'
+
       // 跳出查詢結果
       dialogBox.className = 'dialogBox show querySuccess'
       dialogTxt.innerHTML = `${queryData.inputName}預約的座位為 ${queryData.tableNum}!`
@@ -750,11 +753,9 @@ querySubmit.addEventListener('click', e => {
 
     } else {
 
-      // 查到後，暫時關閉查詢表單
-      queryForm.className = 'query'
-
-      dialogBox.className = 'dialogBox show cannotBook' //CSS一樣 所以直接用 cannotBook
       dialogTxt.textContent = `査無預約QQ`
+      queryForm.className = 'query'
+      dialogBox.className = 'dialogBox show cannotBook'
 
       // 跳出查詢結果時 先讓查詢表單暫時關閉
       // 等查詢結果自動消失後，再讓查詢表單出現
@@ -762,20 +763,15 @@ querySubmit.addEventListener('click', e => {
         dialogBox.className = 'dialogBox'
         queryForm.className = 'query show'
       }, 1000)
+
     }
-
   }
-
-  queryData(q)
-
-
-
 })
 
 // ==========================
 
 
-function cancelFormReset(){
+function cancelFormReset () {
   document.forms["cancelForm"].reset();
   document.querySelector('.cancel .name .notice').className = 'notice'
   document.querySelector('.cancel .tel .notice').className = 'notice'
@@ -797,8 +793,8 @@ cancelOut.addEventListener('click', e => {
 
 
 // 取消預約 -- 送出
-
 cancelSubmit.addEventListener('click', e => {
+
   // 判斷有無填寫資料
   const cancelFormCheck = new CheckForm(inputCancelName, inputCancelTel, 'cancel')
   cancelFormCheck.checkForm();
@@ -820,21 +816,18 @@ cancelSubmit.addEventListener('click', e => {
     where("inputName", "==", data.inputName),
     where("inputTel", "==", data.inputTel))
 
+  queryData(q)
+
   async function queryData () {
 
     const querySnapshot = await getDocs(q);
     if (querySnapshot.docs.length) {
-
       let queryData = {}
       querySnapshot.forEach((doc) => {
-        // console.log(doc.id, " => ", doc.data());
         queryData = doc.data()
       });
-      console.log(queryData)
 
-
-      // 查到預約後開始進行刪除的動作
-      // 關閉表單
+      // 查到預約後 > 關閉表單 > 開始進行刪除的動作
       cancelForm.className = 'cancel'
 
       // 表單重置
@@ -842,11 +835,13 @@ cancelSubmit.addEventListener('click', e => {
 
       // 刪除資料
       cancelBook(queryData.tableNum)
+
     } else {
+
       dialogTxt.textContent = `査無此預約QQ`
 
       cancelForm.className = 'cancel'
-      dialogBox.className = 'dialogBox show cannotBook' // CSS
+      dialogBox.className = 'dialogBox show cannotBook'
 
       // 跳出查無預約時 先讓查詢表格消失
       // 等查無預約消失後 再讓查詢表格出現
@@ -854,14 +849,13 @@ cancelSubmit.addEventListener('click', e => {
         dialogBox.className = 'dialogBox'
         cancelForm.className = 'cancel show'
       }, 1000)
+
     }
   }
 
-  queryData(q)
-
-
 
   async function cancelBook (tableNum) {
+
     try {
 
       let data = {
@@ -877,12 +871,8 @@ cancelSubmit.addEventListener('click', e => {
       dialogBox.className = 'dialogBox show bookSuccess'
       dialogTxt.textContent = `預約座位 ${tableNum} 已取消!`
 
-      person.classList.add('animate')
-      talk.className = 'talk show';
-
       const unsub = onSnapshot(doc(db, "bookingSeat", tableNum), { includeMetadataChanges: true }, (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log('source', source)
 
         // 重抓一次座位資訊
         seatBooking = []
@@ -894,7 +884,10 @@ cancelSubmit.addEventListener('click', e => {
 
       setTimeout(() => {
         dialogBox.className = 'dialogBox'
+        talk.className = 'talk show';
+        person.classList.add('animate')
       }, 1000)
+
     } catch (error) {
       // console.log(error)
     }
