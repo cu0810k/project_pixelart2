@@ -59,28 +59,55 @@ getSeat()
 const boxGroup = document.querySelector('.box-group')
 
 let map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Com', 1, 0, 0, 1, 1, 1, 1, 1, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 'A-1', 0, 0, 'A-2', 0, 0, 'A-3', 0, 0, 'B-1', 0, 0, 'B-2', 0, 0, 'B-3', 0, 0, 'C-1', 0, 0, 'C-2', 0, 0, 'C-3', 0, 0, 'D-1', 0, 0, 'D-2', 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 'D-3', 0, 0, 'E-1', 0, 0, 'E-2', 0, 0, 'E-3', 0, 0, 'F-1', 0, 0, 'F-2', 0, 0, 'F-3', 0, 0, 'G-1', 0, 0, 'G-2', 0, 0, 'G-3', 0, 0, 'H-1', 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 'H-2', 0, 0, 'H-3', 0, 0, 'I-1', 0, 0, 'I-2', 0, 0, 'I-3', 0, 0, 'J-1', 0, 0, 'J-2', 0, 0, 'J-3', 0, 0, 'K-1', 0, 0, 'K-2', 0, 0, 'K-3', 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 'Com', 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'A-1', 0, 'A-2', 0, 'A-3', 0, 'B-1', 0, 'B-2', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'B-3', 0, 'C-1', 0, 'C-2', 0, 'C-3', 0, 'D-1', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'D-2', 0, 'D-3', 0, 'E-1', 0, 'E-2', 0, 'E-3', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'F-1', 0, 'F-2', 0, 'F-3', 0, 'G-1', 0, 'G-2', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'G-3', 0, 'H-1', 0, 'H-2', 0, 'H-3', 0, 'I-1', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'I-2', 0, 'I-3', 0, 'J-1', 0, 'J-2', 0, 'J-3', 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 'K-1', 0, 'K-2', 0, 'K-3', 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-let range = 54
+// let map = [
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Com', 1, 0, 0, 1, 1, 1, 1, 1, 1],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 'A-1', 0, 0, 'A-2', 0, 0, 'A-3', 0, 0, 'B-1', 0, 0, 'B-2', 0, 0, 'B-3', 0, 0, 'C-1', 0, 0, 'C-2', 0, 0, 'C-3', 0, 0, 'D-1', 0, 0, 'D-2', 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 'D-3', 0, 0, 'E-1', 0, 0, 'E-2', 0, 0, 'E-3', 0, 0, 'F-1', 0, 0, 'F-2', 0, 0, 'F-3', 0, 0, 'G-1', 0, 0, 'G-2', 0, 0, 'G-3', 0, 0, 'H-1', 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 'H-2', 0, 0, 'H-3', 0, 0, 'I-1', 0, 0, 'I-2', 0, 0, 'I-3', 0, 0, 'J-1', 0, 0, 'J-2', 0, 0, 'J-3', 0, 0, 'K-1', 0, 0, 'K-2', 0, 0, 'K-3', 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+
+// ]
+
+// let range = 54
+let range = window.innerWidth / 11
 
 function creatSeat () {
 
@@ -97,10 +124,11 @@ function creatSeat () {
 
       // 新增 inline-style   background: ${map[a][b] ? 'yellow' : '#fff'};
       div.style.cssText = `
-          width:${range}px;
-          height:${range}px;
-          top:${a * range}px;
-          left:${b * range}px;
+          width:${window.innerWidth / 11}px;
+          height:${window.innerHeight / 23}px;
+          top:${a * (window.innerHeight / 23)}px;
+          left:${b * (window.innerWidth / 11)}px;
+         /* background: ${map[a][b] ? 'yellow' : '#fff'};*/
         `;
 
       // // console.log(map[a][b])
@@ -112,6 +140,7 @@ function creatSeat () {
 
       //桌上刻字
       if (map[a][b] !== 0 && map[a][b] !== 1 && map[a][b] !== 'Com') {
+        div.className = 'box desk'
         //   div.innerHTML = `<span class="
         // tableNum" data-num="${map[a][b]}">${map[a][b]}</span>`
 
@@ -164,19 +193,24 @@ const optionTop = document.querySelector('#optionTop')
 const optionDown = document.querySelector('#optionDown')
 const optionTopText = document.querySelector('.optionTopText')
 const optionDownText = document.querySelector('.optionDownText')
+
+
+
 let tableNum = ''
 
-let x = 15;
-let y = 17;
+// let x = 15;
+// let y = 17;
+let x = 4;
+let y = 3;
 
 function createPerson (x, y, walk) {
 
   // 新增 inline-style
   person.style.cssText = `
-          width:${range}px;
-          height:${range}px;
-          top:${x * range}px;
-          left:${y * range}px;
+        width:${window.innerWidth / 11}px;
+        height:${window.innerHeight / 23}px;
+        top:${x * (window.innerHeight / 23)}px;
+        left:${y * (window.innerWidth / 11)}px;
         `;
   person.className = `person animate ${walk}`
 
@@ -308,7 +342,7 @@ window.addEventListener('keydown', e => {
   }
 
   // F2 觀看使用說明
-  if (e.code === 'F2'){
+  if (e.code === 'F2') {
     document.querySelector('.instruction').classList.toggle('show');
   }
 
@@ -946,3 +980,223 @@ CheckForm.prototype.checkForm = function () {
 
   this.notice = false
 }
+
+// ===========================================================
+
+
+const mobileTop = document.querySelector('.mobile-top')
+const mobileDown = document.querySelector('.mobile-down')
+const mobileLeft = document.querySelector('.mobile-left')
+const mobileRight = document.querySelector('.mobile-right')
+const mobileZ = document.querySelector('.mobile-z')
+const mobileEnter = document.querySelector('.mobile-enter')
+
+
+mobileTop.addEventListener('click', e => {
+
+  if (person.classList.contains('animate')) {
+    talk.className = 'talk'
+    useCom = false
+    if (map[x - 1][y] === 0) {
+      x--
+      createPerson(x, y, 'top')
+    }
+  }
+
+  person.className = `person animate top-stop`
+
+  if (map[x - 1][y] !== 1 && map[x - 1][y] !== 0 && map[x - 1][y] !== 'Com') {
+    tableNum = map[x - 1][y]
+    talk.className = 'talk show'
+  } else if (map[x - 1][y] == 'Com') {
+    talk.className = 'talk show'
+    useCom = true
+  }
+
+  // 開啟對話框後的上下選項移動
+  function chooseOption (status) {
+    if (dialogBox.classList.contains(status)) {
+      optionTop.focus()
+      optionTop.className = 'focus'
+      optionDown.className = ''
+    }
+  }
+
+  chooseOption('book')
+  chooseOption('comp')
+  chooseOption('querySuccess')
+
+})
+
+
+mobileDown.addEventListener('click', e => {
+
+  if (person.classList.contains('animate')) {
+    talk.className = 'talk'
+    useCom = false
+    if (map[x + 1][y] === 0) {
+      x++
+      createPerson(x, y, 'down')
+    }
+
+    person.className = `person animate down-stop`
+
+    if (map[x + 1][y] !== 1 && map[x + 1][y] !== 0) {
+      tableNum = map[x + 1][y]
+      talk.className = 'talk show'
+    }
+  }
+
+  // 開啟對話框後的上下選項移動
+  function chooseOption (status) {
+    if (dialogBox.classList.contains(status)) {
+      optionDown.focus()
+      optionTop.className = ''
+      optionDown.className = 'focus'
+    }
+  }
+
+  chooseOption('book')
+  chooseOption('comp')
+  chooseOption('querySuccess')
+
+})
+
+
+mobileLeft.addEventListener('click', e => {
+
+  if (person.classList.contains('animate')) {
+    talk.className = 'talk'
+    useCom = false
+    if (map[x][y - 1] === 0) {
+      y--
+      createPerson(x, y, 'left')
+    }
+  }
+
+  person.className = `person animate left-stop`
+
+  if (map[x][y - 1] !== 1 && map[x][y - 1] !== 0 && map[x][y - 1] !== undefined) {
+    tableNum = map[x][y - 1]
+    talk.className = 'talk show'
+  }
+
+})
+
+
+mobileRight.addEventListener('click', e => {
+
+  if (person.classList.contains('animate')) {
+    talk.className = 'talk'
+    useCom = false
+    if (map[x][y + 1] === 0) {
+      y++
+      createPerson(x, y, 'right')
+    }
+  }
+
+  person.className = `person animate right-stop`
+
+  if (map[x][y + 1] !== 1 && map[x][y + 1] !== 0 && map[x][y + 1] !== 'Com' && map[x][y + 1] !== undefined) {
+    tableNum = map[x][y + 1]
+    talk.className = 'talk show'
+  } else if (map[x][y + 1] == 'Com') {
+    talk.className = 'talk show'
+    useCom = true
+  }
+
+
+})
+
+
+mobileZ.addEventListener('click', e => {
+
+  if (talk.className === 'talk show') {
+    talk.className = 'talk';
+    // 當在溝通時關掉animate
+    person.classList.remove('animate')
+
+
+    if (useCom) {
+      dialogBox.className = 'dialogBox show comp'
+      dialogTxt.textContent = `打開了電脳!`
+
+      optionTop.dataset.status = 'comp'
+      optionDown.dataset.status = 'comp'
+
+      optionTopText.innerHTML = '査詢預約';
+      optionDownText.innerText = '取消預約';
+
+    } else if (hasBookSeat.includes(tableNum)) {
+      // 將【目前桌號】與hasBookSeat做交叉比對，若為true則代表座位已被預約
+
+      dialogBox.className = 'dialogBox show cannotBook'
+      dialogTxt.textContent = `座位${tableNum}已被預約，請預約其他座位QQ`
+
+      setTimeout(() => {
+        dialogBox.className = 'dialogBox'
+        talk.className = 'talk show'
+        person.classList.add('animate')
+      }, 1000)
+
+
+    } else {
+
+      dialogBox.className = 'dialogBox show book'
+      dialogTxt.textContent = `目前座位${tableNum}無人預約，是否要預約?`
+
+      optionTop.dataset.status = 'book'
+      optionDown.dataset.status = 'book'
+
+      optionTopText.innerText = '是';
+      optionDownText.innerText = '否';
+
+    }
+
+    optionTop.focus();
+    optionTop.className = 'focus'
+    optionDown.className = ''
+  }
+
+})
+
+mobileEnter.addEventListener('click', e => {
+
+  const status = optionTop.dataset.status
+  console.log(Boolean(optionTop.classList.contains('focus')))
+
+
+  // 上選項
+  if (optionTop.classList.contains('focus') && status === 'book') {
+    dialogBox.className = 'dialogBox';
+    bookForm.className = 'booking show';
+    document.querySelector('.booking .tableNum').innerText = tableNum
+  } else if (optionTop.classList.contains('focus') && status === 'comp') {
+    dialogBox.className = 'dialogBox';
+    queryForm.className = 'query show';
+  } else if (optionTop.classList.contains('focus') && status === 'querySuccess') {
+    dialogBox.className = 'dialogBox';
+    queryForm.className = 'query show';
+  }
+
+  // 下選項
+  if (optionDown.classList.contains('focus') && status === 'book') {
+    dialogBox.className = 'dialogBox';
+    talk.className = 'talk show';
+    // 結束對話時開啟animate
+    person.classList.add('animate')
+  } else if (optionDown.classList.contains('focus') && status === 'comp') {
+    dialogBox.className = 'dialogBox';
+    cancelForm.className = 'cancel show';
+  } else if (optionDown.classList.contains('focus') && status === 'querySuccess') {
+    dialogBox.className = 'dialogBox';
+    talk.className = 'talk show';
+    person.classList.add('animate')
+
+    // 離開查詢結果表單要重置
+    // 關閉表單
+    queryFormReset()
+
+  }
+
+})

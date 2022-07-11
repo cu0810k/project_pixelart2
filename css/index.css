@@ -1,18 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-  background: url(../images/bg2.jpg)no-repeat;
+  background: url(../images/bg-mobile.jpg)no-repeat;
+  background-size: cover;
+  overflow: hidden;
   padding: 0px;
   margin: 0;
   list-style: none;
-  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  body {
+    background: url(../images/bg3.jpg)no-repeat;
+  }
 }
 
 h1 {
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: normal;
   margin-top: 0;
   text-align: center;
+}
+
+
+@media (min-width: 992px) {
+  h1 {
+    font-size: 2.6rem;
+  }
 }
 
 .img-fluid {
@@ -32,45 +46,48 @@ img, svg {
 .instruction {
   position: fixed;
   z-index: 999;
+  width: 70%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
-  border: 5px solid #4870a0;
-  box-shadow: inset 0px 0px 0px 9px #fff,
-    inset 0px 0px 0px 15px #4870a0,
-    inset 0px 8px 0px 15px #a0d0e0,
-    inset 5px 8px 0px 15px #a0d0e0,
-    inset -5px 8px 0px 15px #a0d0e0,
-    0px 4px 0px 0px #4870a0;
+  border: 3px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 5px #fff,
+    inset 0px 0px 0px 9px #4870a0,
+    inset 0px 5px 0px 9px #a0d0e0,
+    inset 3px 5px 0px 9px #a0d0e0,
+    inset -3px 5px 0px 9px #a0d0e0,
+    0px 3px 0px 0px #4870a0;
   border-radius: 10px;
-  padding: 70px 55px;
+  padding: 35px 24px;
   box-sizing: border-box;
   display: none;
 }
 
-.instruction.show{
+
+.instruction.show {
   display: block;
 }
 
 .close {
-  border: 5px solid #4870a0;
-  width: 65px;
-  height: 65px;
+  border: 3px solid #4870a0;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #fff;
   position: absolute;
-  top:-25px;
-  right: -25px;
+  top: -18px;
+  right: -18px;
   cursor: pointer;
 }
 
+
 .close::before,
-.close::after{
+.close::after {
   content: '';
   display: block;
-  width: 30px;
-  height: 5px;
+  width: 20px;
+  height: 4px;
   border-radius: 20px;
   background: #4870a0;
   position: absolute;
@@ -80,18 +97,72 @@ img, svg {
 }
 
 
-.close:hover{
+
+
+@media (min-width: 992px) {
+  .instruction {
+    border: 5px solid #4870a0;
+    width: auto;
+    box-shadow: inset 0px 0px 0px 9px #fff,
+      inset 0px 0px 0px 15px #4870a0,
+      inset 0px 8px 0px 15px #a0d0e0,
+      inset 5px 8px 0px 15px #a0d0e0,
+      inset -5px 8px 0px 15px #a0d0e0,
+      0px 4px 0px 0px #4870a0;
+    border-radius: 10px;
+    padding: 70px 55px;
+  }
+
+  .close {
+    border: 5px solid #4870a0;
+    width: 65px;
+    height: 65px;
+    top: -25px;
+    right: -25px;
+  }
+
+  .close::before,
+  .close::after {
+    width: 30px;
+    height: 5px;
+  }
+}
+
+.close:hover {
   background: #4870a0;
 }
 
 .close:hover::before,
-.close:hover::after{
+.close:hover::after {
   background: #fff;
 }
 
-.close::after{
+.close::after {
   transform: translate(-50%, -50%) rotate(-50deg);
 
+}
+
+.mobile-act,
+.mobile-key {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  font-size: 0;
+  z-index: 99;
+}
+
+.mobile-act {
+  left: 40px;
+}
+
+.mobile-act img,
+.mobile-key img {
+  cursor: pointer;
+}
+
+.mobile-top {
+  display: block;
+  margin: auto;
 }
 
 .ver {
@@ -104,21 +175,36 @@ img, svg {
 
 .container {
   position: relative;
-  margin: 15px;
+}
+
+@media (min-width: 992px) {
+  .container {
+    margin: 15px;
+  }
 }
 
 .computer {
   background: #fffb14;
   display: block;
-  top: 11px;
-  width: 39px;
-  height: 21px;
-  left: 8px;
+  top: 6px;
+  width: 31px;
+  height: 19px;
+  left: 7px;
   position: relative;
   box-shadow: 0px 0px 10px 0px #fffb14,
     0px 0px 10px 0px #fffb14;
   animation: computer .2s infinite linear;
 }
+
+@media (min-width: 992px) {
+  .computer {
+    top: 11px;
+    width: 39px;
+    height: 21px;
+    left: 8px;
+  }
+}
+
 
 @keyframes computer {
   0% {
@@ -133,10 +219,10 @@ img, svg {
 
 .box,
 .person {
-  /* border: 1px solid #51f9ff; */
+  /* border: 1px solid #51f9ff;
+  opacity: .4; */
   position: absolute;
   box-sizing: border-box;
-  /* opacity: .4; */
   text-align: center;
 }
 
@@ -145,14 +231,20 @@ img, svg {
   opacity: .5; */
 }
 
+.box.desk {
+  background: url(../images/desk.png)no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .bookPerson {
-  top: -25px;
+  top: -20px;
   left: 0;
   right: 0;
   position: absolute;
   z-index: 3;
-  height: 34px;
-  width: 39px;
+  height: 24px;
+  width: 25px;
   margin: auto;
   /* background: url(../images/Screenshotter--YouTube--0’02”.jpg) #fff; */
   /* background-size: contain;
@@ -163,7 +255,7 @@ img, svg {
 }
 
 .bookPerson::before {
-  content: url(../images/circle.png);
+  content: url(../images/circle2.png);
   position: absolute;
   top: -1px;
   left: 0;
@@ -171,20 +263,42 @@ img, svg {
 
 .tableNum {
   font-size: .5rem;
+  transform: scale(.6);
   display: block;
-  padding-top: .7rem;
+  padding-top: .5rem;
   text-align: center;
   font-weight: bold;
   color: #492715;
   font-family: 'Press Start 2P', cursive;
-
 }
+
+@media (min-width: 992px) {
+
+  .bookPerson {
+    top: -25px;
+    height: 34px;
+    width: 39px;
+    border-radius: 50%;
+  }
+
+  .bookPerson::before {
+    content: url(../images/circle.png);
+  }
+
+  .tableNum {
+    padding-top: .7rem;
+    transform: scale(1);
+  }
+}
+
 
 .person {
   /* background: yellow; */
   /* outline: 1px solid blue; */
   z-index: 1;
   background: url(../images/front00.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .person.animate {
@@ -192,9 +306,9 @@ img, svg {
 }
 
 .person .talk:after {
-  content: url(../images/dialog4.png);
+  content: url(../images/dialog5.png);
   position: relative;
-  transform: scaleX(1);
+  /* transform: scaleX(1); */
   top: -10px;
   opacity: 0;
   /* top: 0px;
@@ -204,7 +318,7 @@ img, svg {
 
 .person .talk.show:after {
   opacity: 1;
-  top: -25px;
+  top: -20px;
   left: 2px;
   /* top: 11px;
   left:42px; */
@@ -212,13 +326,29 @@ img, svg {
 }
 
 
+@media (min-width: 992px) {
+  .person .talk:after {
+    content: url(../images/dialog4.png);
+  }
+
+  .person .talk.show:after {
+    top: -25px;
+  }
+}
+
+
+
 .person.top {
   background: url(../images/back01.png)no-repeat;
+  background-size: contain;
+  background-position: center;
   /* animation: top .8s 1 alternate; */
 }
 
 .person.top-stop {
   background: url(../images/back00.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 
@@ -253,10 +383,14 @@ img, svg {
 .person.down {
   /* animation: down .8s infinite alternate; */
   background: url(../images/front01.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .person.down-stop {
   background: url(../images/front00.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 
@@ -277,10 +411,14 @@ img, svg {
 .person.left {
   /* animation: left 1s infinite alternate; */
   background: url(../images/left02.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .person.left-stop {
   background: url(../images/left00.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 @keyframes left {
@@ -300,10 +438,14 @@ img, svg {
 .person.right {
   /* animation: right 1s infinite alternate; */
   background: url(../images/right02.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .person.right-stop {
   background: url(../images/right00.png)no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 @keyframes right {
@@ -323,29 +465,46 @@ img, svg {
 
 /* dialogBox */
 .dialogBox {
-  width: 70vw;
+  width: 80%;
   background: #fff;
-  border: 5px solid #4870a0;
-  box-shadow: inset 0px 0px 0px 9px #fff,
-    inset 0px 0px 0px 15px #4870a0,
-    inset 0px 8px 0px 15px #a0d0e0,
-    inset 5px 8px 0px 15px #a0d0e0,
-    inset -5px 8px 0px 15px #a0d0e0,
-    0px 4px 0px 0px #4870a0;
+  border: 3px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 5px #fff,
+    inset 0px 0px 0px 9px #4870a0,
+    inset 0px 5px 0px 9px #a0d0e0,
+    inset 3px 5px 0px 9px #a0d0e0,
+    inset -3px 5px 0px 9px #a0d0e0,
+    0px 3px 0px 0px #4870a0;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 2rem;
+  bottom: 60%;
   z-index: 99;
   border-radius: 10px;
   font-family: Pixel;
   font-weight: 300;
-  padding: 50px 55px;
+  padding: 30px 30px 15px 30px;
   box-sizing: border-box;
-  font-size: 3.7rem;
+  font-size: 1.7rem;
   letter-spacing: -3px;
   opacity: 0;
   display: none;
+  line-height: 1.2em;
+}
+
+@media (min-width: 992px) {
+  .dialogBox {
+    width: 70vw;
+    bottom: 2rem;
+    border: 5px solid #4870a0;
+    box-shadow: inset 0px 0px 0px 9px #fff,
+      inset 0px 0px 0px 15px #4870a0,
+      inset 0px 8px 0px 15px #a0d0e0,
+      inset 5px 8px 0px 15px #a0d0e0,
+      inset -5px 8px 0px 15px #a0d0e0,
+      0px 4px 0px 0px #4870a0;
+    padding: 50px 55px;
+    font-size: 3.7rem;
+  }
 }
 
 
@@ -355,15 +514,28 @@ img, svg {
 }
 
 .dialogBox.show.cannotBook {
-  border: 5px solid #b52828;
+  border: 3px solid #b52828;
   background: #fbeded;
-  box-shadow: inset 0px 0px 0px 9px #fbeded,
-    inset 0px 0px 0px 15px #b52828,
-    inset 0px 8px 0px 15px #e68b8b,
-    inset 5px 8px 0px 15px #e68b8b,
-    inset -5px 8px 0px 15px #e68b8b,
-    0px 4px 0px 0px #b52828;
+  box-shadow: inset 0px 0px 0px 5px #fbeded,
+    inset 0px 0px 0px 9px #b52828,
+    inset 0px 5px 0px 9px #e68b8b,
+    inset 3px 5px 0px 9px #e68b8b,
+    inset -3px 5px 0px 9px #e68b8b,
+    0px 3px 0px 0px #b52828;
 }
+
+@media (min-width: 992px) {
+  .dialogBox.show.cannotBook {
+    border: 5px solid #b52828;
+    box-shadow: inset 0px 0px 0px 9px #fbeded,
+      inset 0px 0px 0px 15px #b52828,
+      inset 0px 8px 0px 15px #e68b8b,
+      inset 5px 8px 0px 15px #e68b8b,
+      inset -5px 8px 0px 15px #e68b8b,
+      0px 4px 0px 0px #b52828;
+  }
+}
+
 
 .dialogBox.show.cannotBook .option {
   display: none;
@@ -379,37 +551,13 @@ img, svg {
 }
 
 .option div {
-  padding-left: 40px;
+  padding-left: 20px;
 }
 
-
-.arrow {
-  display: block;
-  width: 6px;
-  height: 6px;
-  position: absolute;
-  top: 11px;
-  left: 0;
-  background: #1f1f1f;
-  box-shadow:
-    0px 0px 0px 0px #000,
-    0px 6px 0px 0px #000,
-    0px 12px 0px 0px #000,
-    0px 18px 0px 0px #000,
-    0px 24px 0px 0px #000,
-    6px 6px 0px 0px #1f1f1f,
-    6px 12px 0px 0px #000,
-    6px 18px 0px 0px #000,
-    12px 12px 0px 0px #1f1f1f;
-  animation: bling .7s infinite;
-}
-
-.arrow.true {
-  top: 11px;
-}
-
-.arrow.false {
-  top: 69px;
+@media (min-width: 992px) {
+  .option div {
+    padding-left: 40px;
+  }
 }
 
 @keyframes bling {
@@ -452,35 +600,59 @@ img, svg {
 .checkbox-group .focus+label::before {
   content: '';
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 3px;
+  height: 3px;
   position: absolute;
-  top: 11px;
+  top: 5px;
   left: 0;
   background: #1f1f1f;
   box-shadow:
     0px 0px 0px 0px #000,
+    0px 3px 0px 0px #000,
     0px 6px 0px 0px #000,
+    0px 9px 0px 0px #000,
     0px 12px 0px 0px #000,
-    0px 18px 0px 0px #000,
-    0px 24px 0px 0px #000,
-    6px 6px 0px 0px #1f1f1f,
-    6px 12px 0px 0px #000,
-    6px 18px 0px 0px #000,
-    12px 12px 0px 0px #1f1f1f;
+    3px 3px 0px 0px #1f1f1f,
+    3px 6px 0px 0px #000,
+    3px 9px 0px 0px #000,
+    6px 6px 0px 0px #1f1f1f;
   animation: bling .7s infinite;
+}
+
+@media (min-width: 992px) {
+  .checkbox-group .focus+label::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 11px;
+    left: 0;
+    background: #1f1f1f;
+    box-shadow:
+      0px 0px 0px 0px #000,
+      0px 6px 0px 0px #000,
+      0px 12px 0px 0px #000,
+      0px 18px 0px 0px #000,
+      0px 24px 0px 0px #000,
+      6px 6px 0px 0px #1f1f1f,
+      6px 12px 0px 0px #000,
+      6px 18px 0px 0px #000,
+      12px 12px 0px 0px #1f1f1f;
+    animation: bling .7s infinite;
+  }
 }
 
 /* booking */
 .booking, .query, .cancel {
   background: #fff;
-  border: 5px solid #4870a0;
-  box-shadow: inset 0px 0px 0px 9px #fff,
-    inset 0px 0px 0px 15px #4870a0,
-    inset 0px 8px 0px 15px #a0d0e0,
-    inset 5px 8px 0px 15px #a0d0e0,
-    inset -5px 8px 0px 15px #a0d0e0,
-    0px 4px 0px 0px #4870a0;
+  border: 3px solid #4870a0;
+  box-shadow: inset 0px 0px 0px 5px #fff,
+    inset 0px 0px 0px 9px #4870a0,
+    inset 0px 5px 0px 9px #a0d0e0,
+    inset 3px 5px 0px 9px #a0d0e0,
+    inset -3px 5px 0px 9px #a0d0e0,
+    0px 3px 0px 0px #4870a0;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -493,15 +665,35 @@ img, svg {
   font-weight: 300;
   /* padding:50px 55px; */
   box-sizing: border-box;
-  font-size: 2rem;
+  font-size: 1.7rem;
   letter-spacing: -3px;
   opacity: 0;
   display: none;
-  height: 85vh;
+  height: 57vh;
+  width: 80%;
 }
 
 .query, .cancel {
   height: 50vh;
+}
+
+@media (min-width: 992px) {
+  .booking, .query, .cancel {
+    border: 5px solid #4870a0;
+    box-shadow: inset 0px 0px 0px 9px #fff,
+      inset 0px 0px 0px 15px #4870a0,
+      inset 0px 8px 0px 15px #a0d0e0,
+      inset 5px 8px 0px 15px #a0d0e0,
+      inset -5px 8px 0px 15px #a0d0e0,
+      0px 4px 0px 0px #4870a0;
+    font-size: 2rem;
+    height: 85vh;
+    width: auto;
+  }
+
+  .query, .cancel {
+    height: 50vh;
+  }
 }
 
 
@@ -518,7 +710,7 @@ img, svg {
 }
 
 .booking form {
-  margin: 40px 55px;
+  margin: 20px 25px;
   height: 90%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -526,34 +718,126 @@ img, svg {
 
 .query form,
 .cancel form {
-  margin: 0px 55px;
+  margin: 0px 30px;
   top: 50%;
   transform: translateY(-50%);
   position: relative;
+}
+
+@media (min-width: 992px) {
+  .booking form {
+    margin: 40px 55px;
+  }
+
+  .query form,
+  .cancel form {
+    margin: 0px 55px;
+  }
 }
 
 
 
 input, select {
   border: 0;
-  border-bottom: 5px solid #4870a0;
+  border-bottom: 3px solid #4870a0;
   width: 100%;
   font-family: Pixel;
-  font-size: 2rem;
+  font-size: 1.5rem;
   outline: 0;
+  border-radius: 0px;
+  background: #fff;
 }
 
+/*填資料區*/
+
+
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   position: relative;
 }
 
+.input-group .tableNum {
+  font-size: 1.2rem;
+  color: #000;
+  padding: 5px 0;
+  font-weight: normal;
+  line-height: 24px;
+}
+
 .input-group label {
   width: 100%;
-  max-width: 80px;
+  max-width: 60px;
   padding: 5px;
+  font-size: 1.5rem;
 }
+
+@media (min-width: 992px) {
+
+  .input-group .tableNum {
+    font-size: 1.5rem;
+    line-height: 32px;
+  }
+}
+
+.btn_booking {
+  border: 3px solid #4870a0;
+  width: 100%;
+  padding: 10px 10px;
+  font-family: Pixel;
+  font-size: 1.3rem;
+  color: #fff;
+  background: #4870a0;
+  cursor: pointer;
+}
+
+.btn_out {
+  background: #fff;
+  color: #4870a0;
+  border-right: 0px;
+}
+
+@media (min-width: 992px) {
+  .btn_booking {
+    border: 5px solid #4870a0;
+    padding: 10px 20px;
+    font-size: 1.8rem;
+  }
+}
+
+.btn_booking:hover {
+  background: #fff;
+  color: #4870a0;
+  transition: .3s;
+}
+
+.btn_out:hover {
+  background: #a0d0e0;
+}
+
+
+.input-group.btn {
+  margin-bottom: 0;
+  margin-top: 25px;
+}
+
+@media (min-width: 992px) {
+  input, select {
+    border: 0;
+    border-bottom: 5px solid #4870a0;
+    font-size: 2rem;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    max-width: 80px;
+  }
+
+}
+
 
 .input-group .notice {
   color: red;
@@ -607,9 +891,9 @@ input, select {
 
 
 .pic {
-  width: 250px;
-  height: 250px;
-  border: 5px solid #4870a0;
+  width: 150px;
+  height: 150px;
+  border: 3px solid #4870a0;
   background: #fff;
   color: #4870a0;
   font-size: 8rem;
@@ -623,6 +907,14 @@ input, select {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (min-width: 992px) {
+  .pic {
+    width: 250px;
+    height: 250px;
+    border: 5px solid #4870a0;
+  }
 }
 
 
@@ -646,9 +938,9 @@ progress {
 #uploader {
   padding: 5px 3px;
   box-sizing: border-box;
-  width: 260px;
+  width: 156px;
   margin: auto;
-  border: 5px solid #4870a0;
+  border: 3px solid #4870a0;
   border-top: 0px;
   position: relative;
 }
@@ -661,6 +953,12 @@ progress {
   position: absolute;
 }
 
+@media (min-width: 992px) {
+  #uploader {
+    width: 260px;
+    border: 5px solid #4870a0;
+  }
+}
 
 
 .input-group label.pic-control {
@@ -676,49 +974,4 @@ progress {
   padding: 0;
   z-index: 1;
   position: relative;
-}
-
-
-
-/*填資料區*/
-
-.input-group .tableNum {
-  font-size: 1.5rem;
-  color: #000;
-  padding: 5px 0;
-  font-weight: normal;
-  line-height: 32px;
-}
-
-.btn_booking {
-  border: 5px solid #4870a0;
-  width: 100%;
-  padding: 10px 20px;
-  font-family: Pixel;
-  font-size: 1.8rem;
-  color: #fff;
-  background: #4870a0;
-  cursor: pointer;
-}
-
-.btn_out {
-  background: #fff;
-  color: #4870a0;
-  border-right: 0px;
-}
-
-.btn_booking:hover {
-  background: #fff;
-  color: #4870a0;
-  transition: .3s;
-}
-
-.btn_out:hover {
-  background: #a0d0e0;
-}
-
-
-.input-group.btn {
-  margin-bottom: 0;
-  margin-top: 25px;
 }
